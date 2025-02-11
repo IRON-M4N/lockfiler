@@ -25,5 +25,5 @@ inputs:
     default: 'chore: update lockfile'
 
 runs:
-  using: 'node21'
+  using: 'node20'
   main: 'index.js'
