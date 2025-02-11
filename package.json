@@ -1,0 +1,16 @@
+{
+  "name": "lockfiler",
+  "version": "1.0.0",
+  "description": "Automatically update lockfiles (npm/Yarn/pnpm) when package.json changes",
+  "author": "IRON-M4N",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^6.0.0"
+  }
+}
