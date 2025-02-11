@@ -25767,7 +25767,7 @@ function updateLockFile(manager, dryRun) {
         yield exec.exec(commands[manager]);
     });
 }
-//check if package.json is changed
+// Check if package.json is changed
 function isPackageJsonChanged() {
     return __awaiter(this, void 0, void 0, function* () {
         let output = "";
@@ -25776,11 +25776,12 @@ function isPackageJsonChanged() {
                 stdout: (data) => (output += data.toString()),
             },
         };
-        yield exec.exec("git diff --name-only HEAD", [], options);
+        // Alternative to HEAD~ to avoid errors on first commit
+        yield exec.exec("git", ["diff", "--name-only", "HEAD^", "HEAD"], options);
         return output.includes("package.json");
     });
 }
-// Commit changes, no pull request
+// Commit changes, no pull request use other yml for pr
 function commitItems(message, packageManager) {
     return __awaiter(this, void 0, void 0, function* () {
         const lockFiles = {

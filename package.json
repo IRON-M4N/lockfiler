@@ -1,6 +1,6 @@
 {
   "name": "lockfiler",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Automatically update lockfiles (npm/Yarn/pnpm) when package.json changes",
   "author": "IRON-M4N",
   "license": "MIT",
