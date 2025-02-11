@@ -42,7 +42,7 @@ jobs:
           node-version: 21
 
       - name: Run Lockfiler
-        uses: IRON-M4N/lockfiler@v1
+        uses: IRON-M4N/lockfiler@v1.0.1
         with:
           package-manager: auto
           bump-dependencies: true
