@@ -25710,7 +25710,7 @@ function run() {
             // bump dependencies if true
             if (bumpDeps) {
                 core.info("Bumping dependencies...");
-                yield exec.exec("npx npm-check-updates -u");
+                yield exec.exec("npx", ["npm-check-updates", "-u"]);
             }
             // find package manager
             const pkgmanager = yield getPackageManager(pkgManager);
@@ -25722,7 +25722,7 @@ function run() {
                 core.info("Dry run completed - No changes committed.");
                 return;
             }
-            yield commitItems(commitmsg);
+            yield commitItems(commitmsg, pkgmanager);
         }
         catch (error) {
             if (error instanceof Error) {
@@ -25757,7 +25757,7 @@ function updateLockFile(manager, dryRun) {
     return __awaiter(this, void 0, void 0, function* () {
         const commands = {
             npm: "npm install --package-lock-only",
-            yarn: "yarn install",
+            yarn: "yarn install --mode=update-lockfile",
             pnpm: "pnpm install --lockfile-only",
         };
         if (dryRun) {
@@ -25767,6 +25767,7 @@ function updateLockFile(manager, dryRun) {
         yield exec.exec(commands[manager]);
     });
 }
+//check if package.json is changed
 function isPackageJsonChanged() {
     return __awaiter(this, void 0, void 0, function* () {
         let output = "";
@@ -25775,16 +25776,29 @@ function isPackageJsonChanged() {
                 stdout: (data) => (output += data.toString()),
             },
         };
-        yield exec.exec("git diff --name-only HEAD^ HEAD", [], options);
+        yield exec.exec("git diff --name-only HEAD", [], options);
         return output.includes("package.json");
     });
 }
 // Commit changes, no pull request
-function commitItems(message) {
+function commitItems(message, packageManager) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield exec.exec("git add package-lock.json yarn.lock pnpm-lock.yaml");
-        yield exec.exec(`git commit -m "${message}"`);
-        yield exec.exec("git push");
+        const lockFiles = {
+            npm: "package-lock.json",
+            yarn: "yarn.lock",
+            pnpm: "pnpm-lock.yaml",
+        };
+        const _lockfile = lockFiles[packageManager];
+        try {
+            yield fs_1.promises.access(_lockfile);
+        }
+        catch (_a) {
+            core.setFailed(`${_lockfile} not found!`);
+            return;
+        }
+        yield exec.exec("git", ["add", _lockfile]);
+        yield exec.exec("git", ["commit", "-m", message]);
+        yield exec.exec("git", ["push"]);
     });
 }
 run();

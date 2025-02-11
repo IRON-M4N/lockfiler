@@ -14,7 +14,7 @@ Lockfiler is a GitHub Action that automatically updates lockfiles (`package-lock
 
 ### 1. How to use this?  
 
-Create a file at `.github/workflows/update-lockfile.yml` or click on **Actions → New workflow → Set up workflow yourself**.
+Create a file at `.github/workflows/lockfiler.yml` or click on **Actions → New workflow → Set up workflow yourself**.
 
 ```yaml
 name: lockfiler
@@ -35,6 +35,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -42,7 +44,7 @@ jobs:
           node-version: 20
 
       - name: Run Lockfiler
-        uses: IRON-M4N/lockfiler@v1.0.4
+        uses: IRON-M4N/lockfiler@v1.0.5
         with:
           package-manager: auto
           bump-dependencies: true
