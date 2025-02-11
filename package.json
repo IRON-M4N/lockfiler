@@ -1,17 +1,20 @@
 {
   "name": "lockfiler",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Automatically update lockfiles (npm/Yarn/pnpm) when package.json changes",
   "author": "IRON-M4N",
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "prepare": "npm ci",
-    "test": "node index.js"
+    "build": "ncc build src/index.ts -o dist"
   },
   "dependencies": {
     "@actions/core": "^1.11.1",
-    "@actions/exec": "^1.1.1",
-    "@actions/github": "^6.0.0"
+    "@actions/exec": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "@vercel/ncc": "^0.38.3",
+    "typescript": "^5.7.3"
   }
 }
