@@ -1,4 +1,4 @@
-### **Lockfiler - Keep Your Lockfiles Updated**  
+### **Lockfiler - Keep Your Lockfiles Updated Automatically**  
 
 Lockfiler is a GitHub Action that automatically updates lockfiles (`package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`) whenever `package.json` changes. It can also bump dependencies and create a pull request instead of committing directly.  
 
