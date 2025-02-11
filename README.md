@@ -39,7 +39,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 21
+          node-version: 20
 
       - name: Run Lockfiler
         uses: IRON-M4N/lockfiler@v1.0.1
