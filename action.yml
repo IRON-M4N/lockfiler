@@ -1,0 +1,29 @@
+name: 'lockfiler'
+description: 'Automatically update lockfiles (npm/Yarn/pnpm) when package.json changes'
+author: 'Iron Man'
+
+branding:
+  icon: 'lock'
+  color: 'blue'
+
+inputs:
+  package-manager:
+    description: 'Auto-detect or specify (npm/yarn/pnpm)'
+    required: false
+    default: 'auto'
+  bump-dependencies:
+    description: 'Update dependency versions in package.json'
+    required: false
+    default: 'false'
+  dry-run:
+    description: 'Simulate changes without modifying files (for testing)'
+    required: false
+    default: 'false'
+  commit-message:
+    description: 'Custom commit message'
+    required: false
+    default: 'chore: update lockfile'
+
+runs:
+  using: 'node21'
+  main: 'index.js'
